@@ -1,0 +1,17 @@
+{
+  "name": "aftv-ws",
+  "version": "0.0.1",
+  "description": "AfreecaTV chat webSocket client for Node.js",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "ha1fstack",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}
