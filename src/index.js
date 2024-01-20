@@ -7,9 +7,7 @@ const aftv = new AftvChatClient();
 await aftv.connect("bjid");
 
 aftv.on("open", () => {
-  pingInterval = setInterval(() => {
-    if (ws.readyState === WebSocket.OPEN) ws.send(ping);
-  }, 60 * 1000);
+  console.log("websocket connection opened");
 });
 
 aftv.on("message", (chat, rawData) => {
