@@ -6,12 +6,13 @@ import { FLAG } from "../const/flag.js";
 import { getPlayerData } from "../network/data.js";
 import { buildPacketArray } from "../packet/utils.js";
 import { SVC } from "../const/svc.js";
-import { waitForNextEvent } from "../utils/ws.js";
+import { waitForNextEvent } from "../utils/ws/waitForNextEvent.js";
 
 export class AftvChatClientSession {
   client = null;
-  pingPacket = "\x1b\t000000000100\x0c";
-  pingIntervalTimer = null;
+  keepAliveTimer = null;
+
+  keepAlivePacket = createPacket(SVC.SVC_KEEPALIVE, buildPacketArray([]));
 
   createWsClient(CHPT, CHDOMAIN, BJID) {
     const ws = new WebSocket(
@@ -40,8 +41,8 @@ export class AftvChatClientSession {
     ws.send(this.createJoinChPacket(playerResponse));
     await waitForNextEvent(ws, "message");
 
-    this.pingIntervalTimer = setInterval(() => {
-      ws.send(this.pingPacket);
+    this.keepAliveTimer = setInterval(() => {
+      ws.send(this.keepAlivePacket);
     }, 60 * 1000);
 
     return ws;

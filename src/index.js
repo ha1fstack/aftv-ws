@@ -1,5 +1,3 @@
-import { WebSocket } from "ws";
-
 import { AftvChatClient } from "./client/index.js";
 import { decoder } from "./utils/decoder.js";
 
