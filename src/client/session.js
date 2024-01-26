@@ -13,9 +13,9 @@ export class AftvChatClientSession {
   pingPacket = "\x1b\t000000000100\x0c";
   pingIntervalTimer = null;
 
-  createWsClient(CHDOMAIN, BJID) {
+  createWsClient(CHPT, CHDOMAIN, BJID) {
     const ws = new WebSocket(
-      `wss://${CHDOMAIN}:9001/Websocket/${BJID}`,
+      `wss://${CHDOMAIN}:${CHPT}/Websocket/${BJID}`,
       "chat"
     );
     ws.binaryType = "arraybuffer";
@@ -25,7 +25,11 @@ export class AftvChatClientSession {
   async connect(BJID, credential) {
     const playerResponse = await getPlayerData(BJID);
 
-    const ws = this.createWsClient(playerResponse.CHDOMAIN, BJID);
+    const ws = this.createWsClient(
+      playerResponse.CHPT,
+      playerResponse.CHDOMAIN,
+      BJID
+    );
     this.client = ws;
 
     await waitForNextEvent(ws, "open");

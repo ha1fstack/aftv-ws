@@ -34,6 +34,8 @@ export async function getPlayerData(BJID, cookieString) {
   const CHDOMAIN = data["CHANNEL"]["CHDOMAIN"];
   const CHATNO = data["CHANNEL"]["CHATNO"];
   const FTK = data["CHANNEL"]["FTK"];
+  // +=1 if wss
+  const CHPT = parseInt(data["CHANNEL"]["CHPT"]) + 1;
 
-  return { CHDOMAIN, CHATNO, FTK };
+  return { CHDOMAIN, CHATNO, FTK, CHPT };
 }
